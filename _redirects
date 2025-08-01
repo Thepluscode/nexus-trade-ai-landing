@@ -1,0 +1,13 @@
+# Netlify redirects file
+
+# API redirects to serverless functions
+/api/form-submit /.netlify/functions/form-handler 200
+
+# Legacy redirects
+/trial /#pricing 301
+/demo /#contact 301
+/enterprise /#contact 301
+/signup /#pricing 301
+
+# SPA fallback (if needed)
+/* /index.html 200

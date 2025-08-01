@@ -1,0 +1,131 @@
+# Netlify Configuration for Nexus Trade AI Landing Page
+
+[build]
+  # Build command (not needed for static site, but can be used for preprocessing)
+  command = "echo 'Building Nexus Trade AI Landing Page...'"
+  
+  # Directory to publish (current directory since files are in root)
+  publish = "."
+  
+  # Functions directory (for serverless functions if needed)
+  functions = "netlify/functions"
+
+# Redirect rules
+[[redirects]]
+  # Redirect /api/* to external API (replace with your actual API URL)
+  from = "/api/*"
+  to = "https://api.nexustradeai.com/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  # Redirect old URLs to new structure
+  from = "/trial"
+  to = "/#pricing"
+  status = 301
+
+[[redirects]]
+  # Redirect demo requests
+  from = "/demo"
+  to = "/#contact"
+  status = 301
+
+[[redirects]]
+  # Redirect enterprise inquiries
+  from = "/enterprise"
+  to = "/#contact"
+  status = 301
+
+[[redirects]]
+  # SPA fallback (if converting to SPA later)
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    
+    # Performance headers
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Environment variables (set these in Netlify dashboard)
+[build.environment]
+  NODE_ENV = "production"
+  SITE_URL = "https://nexustradeai.netlify.app"
+
+# Form handling (Netlify Forms)
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+
+# Edge functions (if needed for advanced functionality)
+# [[edge_functions]]
+#   function = "geolocation"
+#   path = "/api/geo"
+
+# Plugin configuration
+[[plugins]]
+  package = "@netlify/plugin-sitemap"
+  
+  [plugins.inputs]
+    buildDir = "."
+    exclude = [
+      "netlify.toml",
+      "README.md",
+      "config.js"
+    ]
+
+# Context-specific settings
+[context.production]
+  command = "echo 'Production build'"
+  
+[context.production.environment]
+  NODE_ENV = "production"
+  ANALYTICS_ENABLED = "true"
+
+[context.deploy-preview]
+  command = "echo 'Deploy preview build'"
+  
+[context.deploy-preview.environment]
+  NODE_ENV = "staging"
+  ANALYTICS_ENABLED = "false"
+
+[context.branch-deploy]
+  command = "echo 'Branch deploy build'"
+  
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+  ANALYTICS_ENABLED = "false"
