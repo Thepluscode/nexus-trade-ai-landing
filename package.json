@@ -1,0 +1,36 @@
+{
+  "name": "nexus-trade-ai-landing",
+  "version": "1.0.0",
+  "description": "Nexus Trade AI - World's Most Advanced Trading Platform Landing Page",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'Static site - no build required'",
+    "deploy": "netlify deploy --prod",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "trading",
+    "algorithmic-trading",
+    "fintech",
+    "high-frequency-trading",
+    "portfolio-optimization",
+    "risk-management"
+  ],
+  "author": "Nexus Trade AI",
+  "license": "Proprietary",
+  "dependencies": {
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.10.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thepluscode/nexus-trade-ai-landing.git"
+  },
+  "homepage": "https://nexustradeai.com",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
